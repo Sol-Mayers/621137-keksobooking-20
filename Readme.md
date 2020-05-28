@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ренат Юсипов](https://up.htmlacademy.ru/javascript/20/user/621137).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Быков](https://htmlacademy.ru/profile/id618225).
 
 ---
 

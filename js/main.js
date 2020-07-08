@@ -102,10 +102,10 @@ var createSetOfItems = function (mySuggestions) {
 };
 
 var disableFieldsets = function () {
-  document.querySelectorAll('fieldset').forEach(function(element) {
-    element.setAttribute('disabled', 'disabled')
+  document.querySelectorAll('fieldset').forEach(function (element) {
+    element.setAttribute('disabled', 'disabled');
   });
-}
+};
 disableFieldsets();
 /*
 var disableFieldsets = function () {
@@ -120,35 +120,35 @@ var adress = document.querySelector('#address');
 
 var mainAdress = function () {
   adress.value = 'X:' + parseInt(mainPin.style.left, 10) + ' Y:' + parseInt(mainPin.style.top, 10);
-//проработать правильное отображение координат за вычетом размеров метки!!!
-}
+// проработать правильное отображение координат за вычетом размеров метки!!!
+};
 mainAdress();
 
-mainPin.addEventListener('mousedown', function(touch) {
-  if (touch.which == 1) {
+mainPin.addEventListener('mousedown', function (touch) {
+  if (touch.which === 1) {
     map.classList.remove('map--faded');
     createSetOfItems(setOfSuggestions);
     mapItems.appendChild(fragment);
     var enableFieldsets = function () {
-      document.querySelectorAll('fieldset').forEach(function(element) {
-        element.removeAttribute('disabled', 'disabled')
+      document.querySelectorAll('fieldset').forEach(function (element) {
+        element.removeAttribute('disabled', 'disabled');
       });
-    }
+    };
     enableFieldsets();
     adForm.classList.remove('ad-form--disabled');
   }
 });
 
-mainPin.addEventListener('keydown', function(keyTouch) {
-  if (keyTouch.keyCode == 13) {
+mainPin.addEventListener('keydown', function (keyTouch) {
+  if (keyTouch.keyCode === 13) {
     map.classList.remove('map--faded');
     createSetOfItems(setOfSuggestions);
     mapItems.appendChild(fragment);
     var enableFieldsets = function () {
-      document.querySelectorAll('fieldset').forEach(function(element) {
-        element.removeAttribute('disabled', 'disabled')
+      document.querySelectorAll('fieldset').forEach(function (element) {
+        element.removeAttribute('disabled', 'disabled');
       });
-    }
+    };
     enableFieldsets();
     adForm.classList.remove('ad-form--disabled');
   }
@@ -156,10 +156,6 @@ mainPin.addEventListener('keydown', function(keyTouch) {
 
 var roomsNumber = document.querySelector('#room_number');
 var guestsNumber = document.querySelector('#capacity');
-var roomNumber1 = roomsNumber.options[0];
-var roomNumber2 = roomsNumber.options[1];
-var roomNumber3 = roomsNumber.options[2];
-var roomNumber4 = roomsNumber.options[3];
 var guestNumber3 = guestsNumber.options[0];
 var guestNumber2 = guestsNumber.options[1];
 var guestNumber1 = guestsNumber.options[2];
@@ -171,64 +167,64 @@ guestNumber0.setAttribute('disabled', 'disabled');
 var beginingShow = [guestNumber3, guestNumber2, guestNumber0];
 
 for (var i = 0; i < beginingShow.length; i++) {
-  beginingShow[i].setAttribute('disabled', 'disabled')
-};
-//Проблема с циклом выше. Почему не получается?
+  beginingShow[i].setAttribute('disabled', 'disabled');
+}
+// Проблема с циклом выше. Почему не получается?
 
-roomsNumber.addEventListener('change', function() {
+roomsNumber.addEventListener('change', function () {
   switch (roomsNumber.value) {
     case ONE_ROOM:
       guestNumber3.setAttribute('disabled', 'disabled');
       guestNumber2.setAttribute('disabled', 'disabled');
       guestNumber1.removeAttribute('disabled');
       guestNumber0.setAttribute('disabled', 'disabled');
-    break;
+      break;
     case TWO_ROOMS:
       guestNumber3.setAttribute('disabled', 'disabled');
       guestNumber0.setAttribute('disabled', 'disabled');
       guestNumber2.removeAttribute('disabled');
       guestNumber1.removeAttribute('disabled');
-    break;
+      break;
     case THREE_ROOMS:
       guestNumber3.removeAttribute('disabled');
       guestNumber0.setAttribute('disabled', 'disabled');
       guestNumber2.removeAttribute('disabled');
       guestNumber1.removeAttribute('disabled');
-    break;
+      break;
     case HUNDRED_ROOMS:
       guestNumber3.setAttribute('disabled', 'disabled');
       guestNumber0.removeAttribute('disabled');
       guestNumber1.setAttribute('disabled', 'disabled');
       guestNumber2.setAttribute('disabled', 'disabled');
-    break;
+      break;
   }
 });
 
-var onInputCheckRoom = function() {
-  roomsNumber.setCustomValidity('')
+var onInputCheckRoom = function () {
+  roomsNumber.setCustomValidity('');
   switch (roomsNumber.value) {
     case ONE_ROOM:
       if (guestsNumber.value !== guestNumber1.value) {
-        roomsNumber.setCustomValidity('Неверное количество комнат')
+        roomsNumber.setCustomValidity('Неверное количество комнат');
       }
-    break;
+      break;
     case TWO_ROOMS:
       if (guestsNumber.value !== guestNumber1.value && guestsNumber.value !== guestNumber2.value) {
-        roomsNumber.setCustomValidity('Неверное количество комнат')
+        roomsNumber.setCustomValidity('Неверное количество комнат');
       }
-    break;
+      break;
     case THREE_ROOMS:
       if (guestsNumber.value !== guestNumber1.value && guestsNumber.value !== guestNumber2.value && guestsNumber.value !== guestNumber3.value) {
-        roomsNumber.setCustomValidity('Неверное количество комнат')
+        roomsNumber.setCustomValidity('Неверное количество комнат');
       }
-    break;
+      break;
     case HUNDRED_ROOMS:
       if (guestsNumber.value !== guestNumber0.value) {
-        roomsNumber.setCustomValidity('Неверное количество комнат')
+        roomsNumber.setCustomValidity('Неверное количество комнат');
       }
-    break;
+      break;
   }
-}
+};
 
-roomsNumber.addEventListener('input', onInputCheckRoom)
-guestsNumber.addEventListener('input', onInputCheckRoom)
+roomsNumber.addEventListener('input', onInputCheckRoom);
+guestsNumber.addEventListener('input', onInputCheckRoom);

@@ -1,6 +1,10 @@
 'use strict';
 
 var SET_OF_AVATARS = ['01', '02', '03', '04', '05', '06', '07', '08'];
+var ONE_ROOM = '1';
+var TWO_ROOMS = '2';
+var THREE_ROOMS = '3';
+var HUNDRED_ROOMS = '100';
 
 var getAvatar = function () {
   var author = SET_OF_AVATARS[Math.floor(Math.random() * SET_OF_AVATARS.length)];
@@ -97,48 +101,57 @@ var createSetOfItems = function (mySuggestions) {
   }
 };
 
-
-
+var disableFieldsets = function () {
+  document.querySelectorAll('fieldset').forEach(function(element) {
+    element.setAttribute('disabled', 'disabled')
+  });
+}
+disableFieldsets();
+/*
 var disableFieldsets = function () {
   [...document.getElementsByTagName('fieldset')].forEach(i => i.setAttribute('disabled', 'disabled'));
 }
 
 disableFieldsets();
-
+*/
 var mainPin = document.querySelector('.map__pin--main');
 var adForm = document.querySelector('.ad-form');
 var adress = document.querySelector('#address');
 
 var mainAdress = function () {
   adress.value = 'X:' + parseInt(mainPin.style.left, 10) + ' Y:' + parseInt(mainPin.style.top, 10);
-  //проработать правильное отображение координат за вычетом размеров метки!!!
+//проработать правильное отображение координат за вычетом размеров метки!!!
 }
 mainAdress();
 
 mainPin.addEventListener('mousedown', function(touch) {
-      if (touch.which == 1) {
-        map.classList.remove('map--faded');
-        createSetOfItems(setOfSuggestions);
-        mapItems.appendChild(fragment);
-        var enableFieldsets = function () {
-          [...document.getElementsByTagName('fieldset')].forEach(i => i.removeAttribute('disabled', 'disabled'));
-        }
-        enableFieldsets();
-        adForm.classList.remove('ad-form--disabled');
-      }
+  if (touch.which == 1) {
+    map.classList.remove('map--faded');
+    createSetOfItems(setOfSuggestions);
+    mapItems.appendChild(fragment);
+    var enableFieldsets = function () {
+      document.querySelectorAll('fieldset').forEach(function(element) {
+        element.removeAttribute('disabled', 'disabled')
+      });
+    }
+    enableFieldsets();
+    adForm.classList.remove('ad-form--disabled');
+  }
 });
 
 mainPin.addEventListener('keydown', function(keyTouch) {
-      if (keyTouch.keyCode == 13) {
-        map.classList.remove('map--faded');
-        createSetOfItems(setOfSuggestions);
-        mapItems.appendChild(fragment);
-        var enableFieldsets = function () {
-          [...document.getElementsByTagName('fieldset')].forEach(i => i.removeAttribute('disabled', 'disabled'));
-        }
-        enableFieldsets();
-        adForm.classList.remove('ad-form--disabled');
-      }
+  if (keyTouch.keyCode == 13) {
+    map.classList.remove('map--faded');
+    createSetOfItems(setOfSuggestions);
+    mapItems.appendChild(fragment);
+    var enableFieldsets = function () {
+      document.querySelectorAll('fieldset').forEach(function(element) {
+        element.removeAttribute('disabled', 'disabled')
+      });
+    }
+    enableFieldsets();
+    adForm.classList.remove('ad-form--disabled');
+  }
 });
 
 var roomsNumber = document.querySelector('#room_number');
@@ -155,35 +168,67 @@ var guestNumber0 = guestsNumber.options[3];
 guestNumber3.setAttribute('disabled', 'disabled');
 guestNumber2.setAttribute('disabled', 'disabled');
 guestNumber0.setAttribute('disabled', 'disabled');
-/*
 var beginingShow = [guestNumber3, guestNumber2, guestNumber0];
 
-for (var i = 0; i <= beginingShow.length; i++) {
+for (var i = 0; i < beginingShow.length; i++) {
   beginingShow[i].setAttribute('disabled', 'disabled')
 };
-*/
 //Проблема с циклом выше. Почему не получается?
 
 roomsNumber.addEventListener('change', function() {
-
-if (roomsNumber.value == 1) {
-  guestNumber3.setAttribute('disabled', 'disabled');
-  guestNumber2.setAttribute('disabled', 'disabled');
-  guestNumber0.setAttribute('disabled', 'disabled');
-    } else if (roomsNumber.value == 2) {
-        guestNumber3.setAttribute('disabled', 'disabled');
-        guestNumber0.setAttribute('disabled', 'disabled');
-        guestNumber2.removeAttribute('disabled', 'disabled');
-               } else if (roomsNumber.value == 3) {
-        guestNumber3.removeAttribute('disabled', 'disabled');
-        guestNumber0.setAttribute('disabled', 'disabled');
-        guestNumber2.removeAttribute('disabled', 'disabled');
-               } else if (roomsNumber.value == 100) {
-        guestNumber3.setAttribute('disabled', 'disabled');
-        guestNumber0.removeAttribute('disabled', 'disabled');
-        guestNumber1.setAttribute('disabled', 'disabled');
-        guestNumber2.setAttribute('disabled', 'disabled');
-               }
-
+  switch (roomsNumber.value) {
+    case ONE_ROOM:
+      guestNumber3.setAttribute('disabled', 'disabled');
+      guestNumber2.setAttribute('disabled', 'disabled');
+      guestNumber1.removeAttribute('disabled');
+      guestNumber0.setAttribute('disabled', 'disabled');
+    break;
+    case TWO_ROOMS:
+      guestNumber3.setAttribute('disabled', 'disabled');
+      guestNumber0.setAttribute('disabled', 'disabled');
+      guestNumber2.removeAttribute('disabled');
+      guestNumber1.removeAttribute('disabled');
+    break;
+    case THREE_ROOMS:
+      guestNumber3.removeAttribute('disabled');
+      guestNumber0.setAttribute('disabled', 'disabled');
+      guestNumber2.removeAttribute('disabled');
+      guestNumber1.removeAttribute('disabled');
+    break;
+    case HUNDRED_ROOMS:
+      guestNumber3.setAttribute('disabled', 'disabled');
+      guestNumber0.removeAttribute('disabled');
+      guestNumber1.setAttribute('disabled', 'disabled');
+      guestNumber2.setAttribute('disabled', 'disabled');
+    break;
+  }
 });
 
+var onInputCheckRoom = function() {
+  roomsNumber.setCustomValidity('')
+  switch (roomsNumber.value) {
+    case ONE_ROOM:
+      if (guestsNumber.value !== guestNumber1.value) {
+        roomsNumber.setCustomValidity('Неверное количество комнат')
+      }
+    break;
+    case TWO_ROOMS:
+      if (guestsNumber.value !== guestNumber1.value && guestsNumber.value !== guestNumber2.value) {
+        roomsNumber.setCustomValidity('Неверное количество комнат')
+      }
+    break;
+    case THREE_ROOMS:
+      if (guestsNumber.value !== guestNumber1.value && guestsNumber.value !== guestNumber2.value && guestsNumber.value !== guestNumber3.value) {
+        roomsNumber.setCustomValidity('Неверное количество комнат')
+      }
+    break;
+    case HUNDRED_ROOMS:
+      if (guestsNumber.value !== guestNumber0.value) {
+        roomsNumber.setCustomValidity('Неверное количество комнат')
+      }
+    break;
+  }
+}
+
+roomsNumber.addEventListener('input', onInputCheckRoom)
+guestsNumber.addEventListener('input', onInputCheckRoom)

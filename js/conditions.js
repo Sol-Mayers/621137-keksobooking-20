@@ -20,8 +20,9 @@
   mainPin.addEventListener('mousedown', function (touch) {
     if (touch.which === 1) {
       window.suggestions.map.classList.remove('map--faded');
-      window.pins.createSetOfItems(window.pins.setOfSuggestions);
-      window.pins.mapItems.appendChild(window.pins.fragment);
+      window.load(onSuccess, onError);
+      //window.pins.createSetOfItems(window.pins.setOfSuggestions);
+      //window.pins.mapItems.appendChild(window.pins.fragment);
       var activeAdress = function () {
         adress.value = 'X:' + (parseInt(mainPin.style.left, 10) + 156 / 2) + ' Y:' + (parseInt(mainPin.style.top, 10) + (156 / 2) + 47);
       };
@@ -39,8 +40,9 @@
   mainPin.addEventListener('keydown', function (keyTouch) {
     if (keyTouch.keyCode === 13) {
       window.suggestions.map.classList.remove('map--faded');
-      window.pins.createSetOfItems(window.pins.setOfSuggestions);
-      window.pins.mapItems.appendChild(window.pins.fragment);
+      window.load(onSuccess, onError);
+      //window.pins.createSetOfItems(window.pins.setOfSuggestions);
+      //window.pins.mapItems.appendChild(window.pins.fragment);
       var enableFieldsets = function () {
         document.querySelectorAll('fieldset').forEach(function (element) {
           element.removeAttribute('disabled', 'disabled');

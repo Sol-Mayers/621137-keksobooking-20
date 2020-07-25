@@ -4,7 +4,6 @@
   var mapItems = document.querySelector('.map__pins');
   var ITEM_WIDTH = 40;
   var ITEM_HEIGHT = 44;
-  var SUGGESTION_NUMBER = 8;
 
   var createItem = function (suggestion) {
     var pin = itemTemplate.cloneNode(true);
@@ -19,8 +18,6 @@
     return pin;
   };
 
-  var setOfSuggestions = window.suggestions.offer(SUGGESTION_NUMBER);
-
   var itemTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var fragment = document.createDocumentFragment();
@@ -31,10 +28,12 @@
       fragment.appendChild(item);
     }
   };
+  var createPins = function (mySuggestions) {
+    createSetOfItems(mySuggestions);
+    mapItems.appendChild(fragment);
+  };
+
   window.pins = {
-    mapItems: mapItems,
-    setOfSuggestions: setOfSuggestions,
-    fragment: fragment,
-    createSetOfItems: createSetOfItems,
+    createPins: createPins
   };
 })();

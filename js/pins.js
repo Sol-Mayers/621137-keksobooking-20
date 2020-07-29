@@ -23,7 +23,7 @@
   var fragment = document.createDocumentFragment();
 
   var createSetOfItems = function (mySuggestions) {
-    for (var i = 0; i < mySuggestions.length; i++) {
+    for (var i = 0; i < 5; i++) {
       var item = createItem(mySuggestions[i]);
       fragment.appendChild(item);
     }
